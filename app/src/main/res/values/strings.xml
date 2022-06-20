@@ -1,4 +1,17 @@
 <resources>
     <string name="app_name" translatable="false">NMedia</string>
     <string name="greeting">NMedia!</string>
+    <string name="avatar_description" translatable="false">Netology avatar</string>
+    <string name="menu_button_description" translatable="false">Menu button</string>
+    <string name="author" translatable="false">Нетология пост блаблаблаьлаблаблаблаблабла</string>
+    <string name="published" >18 june 2022</string>
+    <string name="seen_counter" translatable="false">5K</string>
+    <string name="like_counter" translatable="false">555</string>
+    <string name="share_counter" translatable="false">77</string>
+    <string name="post_text" translatable="false">Обратите внимание на блок с количеством просмотров. С ним есть небольшая проблема (поскольку он расположен справа). Если количество просмотров вырастет, например, до 500, то есть целых два варианта:
+
+Отталкиваться от текста (т.е. установить фиксированное расстояние от текста до границы родителя, а саму иконку приклеить к границе текста)
+Оставить достаточное количество места, чтобы уместилось и 500 и 1К, тогда на всех карточках положение этого блока будет одинаковым
+Вам нужно провести небольшое исследование и посмотреть, каким образом это реализовано в Vk.</string>
+
 </resources>
