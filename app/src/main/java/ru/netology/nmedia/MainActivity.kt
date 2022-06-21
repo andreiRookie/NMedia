@@ -6,6 +6,10 @@ import android.os.Bundle
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.post_item)
+        println(R.string.greeting)
+        println(getString(R.string.greeting))
+        println(getString(R.string.app_name))
+        println(getString(R.string.avatar_description))
     }
 }
