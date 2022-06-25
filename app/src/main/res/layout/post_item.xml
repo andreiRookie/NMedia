@@ -89,6 +89,7 @@
 
     <ImageButton
         android:id="@+id/like_button"
+        android:contentDescription="like button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/common_padding"
@@ -101,7 +102,7 @@
         />
     <TextView
         android:id="@+id/like_counter"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:singleLine="true"
         android:text="@string/like_counter"
@@ -125,7 +126,7 @@
         app:layout_constraintHorizontal_chainStyle="spread"/>
     <TextView
         android:id="@+id/share_counter"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:singleLine="true"
         android:text="@string/share_counter"
@@ -133,7 +134,6 @@
         app:layout_constraintTop_toBottomOf="@id/footer_barrier"
         app:layout_constraintStart_toEndOf="@id/share_button"
         app:layout_constraintBottom_toBottomOf="@id/share_button"
-        app:layout_constraintEnd_toStartOf="@id/seen_icon"
         app:layout_constraintHorizontal_chainStyle="spread_inside"
         android:layout_marginStart="@dimen/common_counter_padding"/>
 
@@ -150,7 +150,7 @@
 
     <TextView
         android:id="@+id/seen_counter"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:singleLine="true"
         android:text="@string/seen_counter"
