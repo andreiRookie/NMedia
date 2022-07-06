@@ -3,11 +3,9 @@ package ru.netology.nmedia
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
-import androidx.annotation.DrawableRes
-import ru.netology.nmedia.data.Post
-import ru.netology.nmedia.data.PostService
-import ru.netology.nmedia.databinding.PostItemBinding
+import ru.netology.nmedia.databinding.ActivityMainBinding
 import ru.netology.nmedia.viewModel.PostViewModel
+import ru.netology.nmedia.viewModel.PostsAdapter
 
 class MainActivity : AppCompatActivity() {
 
@@ -16,27 +14,32 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val binding = PostItemBinding.inflate(layoutInflater)
+
+        val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        viewModel.data.observe(this) { post ->
-            binding.render(post)
+        val adapter = PostsAdapter(
+            onLikeListener = {post -> viewModel.like(post.id)},
+            onShareListener = {post -> viewModel.share(post.id)}
+        )
+        binding.postsRecyclerView.adapter = adapter
 
-            with(binding) {
+        viewModel.data.observe(this) { posts ->
+            adapter.submitList(posts)
 
-                if (post.likedByMe) {
-                    likeButton.setImageResource(getLikeIconResId(post.likedByMe))
-                }
+//            adapter.list = posts
+//            binding.postsRecyclerView.adapter = PostsAdapter(viewModel.like(post.id))
+//            binding.render(posts)
 
-            }
+//            with(binding) {
+//
+//                if (post.likedByMe) {
+//                    likeButton.setImageResource(getLikeIconResId(post.likedByMe))
+//                }
+//
+//            }
         }
-        binding.likeButton.setOnClickListener {
-            viewModel.like()
-        }
 
-        binding.shareButton.setOnClickListener {
-            viewModel.share()
-        }
 
         // without scope function "with(T)"
 //        if (post.likedByMe) {
@@ -73,19 +76,37 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun PostItemBinding.render(post: Post) {
-        author.text = post.author
-        postText.text = post.content
-        published.text = post.published
-        likeCounter.text = PostService.countToString(post.likes)
-        seenCounter.text = PostService.countToString(post.viewCount)
-        shareCounter.text = PostService.countToString(post.repostCount)
-        likeButton.setImageResource(getLikeIconResId(post.likedByMe))
-    }
+//    private fun ActivityMainBinding.render(posts: List<Post>) {
+//        for (post in posts) {
+//            PostItemBinding.inflate(
+//                layoutInflater, root, true
+//            ).render(post)
+//        }
 
-    @DrawableRes
-    private fun getLikeIconResId(isLiked: Boolean) =
-        if (isLiked) R.drawable.ic_liked_24 else R.drawable.ic_like_24
+//    }
+
+//    private fun PostItemBinding.render(post: Post) {
+//        author.text = post.author
+//        postText.text = post.content
+//        published.text = post.published
+//        likeCounter.text = PostService.countToString(post.likes)
+//        seenCounter.text = PostService.countToString(post.viewCount)
+//        shareCounter.text = PostService.countToString(post.repostCount)
+//        likeButton.setImageResource(getLikeIconResId(post.likedByMe))
+//
+//        likeButton.setOnClickListener {
+//            likeButton.setImageResource(getLikeIconResId(post.likedByMe))
+//            viewModel.like(post.id)
+//        }
+//
+//        shareButton.setOnClickListener {
+//            viewModel.share(post.id)
+//        }
+//    }
+
+//    @DrawableRes
+//    private fun getLikeIconResId(isLiked: Boolean) =
+//        if (isLiked) R.drawable.ic_liked_24 else R.drawable.ic_like_24
 
 
 
