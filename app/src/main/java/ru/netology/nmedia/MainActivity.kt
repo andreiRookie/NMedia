@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
+import ru.netology.nmedia.AndroidUtils.focusAndShowKeyboard
 import ru.netology.nmedia.databinding.ActivityMainBinding
 import ru.netology.nmedia.viewModel.PostViewModel
 import ru.netology.nmedia.adapter.PostsAdapter
@@ -93,10 +94,15 @@ class MainActivity : AppCompatActivity() {
             with(binding.contentTextEdit){
 
 
-                requestFocus()
-                AndroidUtils.showKeyboard(this)
+//                requestFocus()
+//                AndroidUtils.showKeyboard(this)
+                this.focusAndShowKeyboard()
                 setText(it.content)
+
+
             }
+
+
         }
 
     }

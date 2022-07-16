@@ -39,6 +39,7 @@ class PostViewModel : ViewModel() {
 
     fun editTextCancel(view: TextView) {
         println("Edit canceled")
+        edited.value = emptyPost
         view.text = ""
         view.clearFocus()
         AndroidUtils.hideKeyboard(view)
