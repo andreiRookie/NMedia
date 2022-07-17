@@ -45,11 +45,15 @@ internal class PostsAdapter(
             postText.text = post.content
             published.text = post.published
 
-            likeCounter.text = PostService.countToString(post.likes)
-            seenCounter.text = PostService.countToString(post.viewCount)
-            shareCounter.text = PostService.countToString(post.repostCount)
+//            likeCounter.text = PostService.countToString(post.likes)
+            likeButton.text = PostService.countToString(post.likes)
+            shareButton.text = PostService.countToString(post.repostCount)
 
-            likeButton.setImageResource(getLikeIconResId(post.likedByMe))
+            seenCounter.text = PostService.countToString(post.viewCount)
+
+
+          //  likeButton.setButtonDrawable(getLikeIconResId(post.likedByMe))
+            likeButton.isChecked = post.likedByMe
 
             likeButton.setOnClickListener {
                listener.onLike(post)
@@ -80,9 +84,9 @@ internal class PostsAdapter(
             }
         }
 
-        @DrawableRes
-        private fun getLikeIconResId(isLiked: Boolean) =
-            if (isLiked) R.drawable.ic_liked_24 else R.drawable.ic_like_24
+//        @DrawableRes
+//        private fun getLikeIconResId(isLiked: Boolean) =
+//            if (isLiked) R.drawable.ic_liked_24 else R.drawable.ic_like_24
 
     }
 
