@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
-import ru.netology.nmedia.AndroidUtils.focusAndShowKeyboard
+import ru.netology.nmedia.AndroidUtils.setCursorAtEndWithFocusAndShowKeyboard
 import ru.netology.nmedia.databinding.ActivityMainBinding
 import ru.netology.nmedia.viewModel.PostViewModel
 import ru.netology.nmedia.adapter.PostsAdapter
@@ -49,6 +49,7 @@ class MainActivity : AppCompatActivity() {
         binding.postsRecyclerView.adapter = adapter
 
         viewModel.data.observe(this) { posts ->
+            println("viewModel.data.observe")
             adapter.submitList(posts)
 
         }
@@ -74,8 +75,8 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 // в один метод свести чендж и сейв надо ли??:
-                viewModel.changeContent(text.toString())
-                viewModel.save()
+                viewModel.changeContentAndSave(text.toString())
+//                viewModel.save()
 
                 setText("")
                 clearFocus()
@@ -87,8 +88,10 @@ class MainActivity : AppCompatActivity() {
         viewModel.edited.observe(this) {
             println("viewModel.edited.observe")
             editGroupBinding.visibility = View.VISIBLE
+
             if(it.id == 0L) {
                 editGroupBinding.visibility = View.GONE
+                println("return@observe viewModel.edited.observe")
                 return@observe
             }
             with(binding.contentTextEdit){
@@ -96,7 +99,7 @@ class MainActivity : AppCompatActivity() {
 
 //                requestFocus()
 //                AndroidUtils.showKeyboard(this)
-                this.focusAndShowKeyboard()
+                this.setCursorAtEndWithFocusAndShowKeyboard()
                 setText(it.content)
 
 

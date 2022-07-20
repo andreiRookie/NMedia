@@ -45,22 +45,27 @@ class PostViewModel : ViewModel() {
         AndroidUtils.hideKeyboard(view)
     }
 
-    fun save() {
-        edited.value?.let {
-            println("${edited.value}, save() -> repository.savePost(it)")
-            repository.savePost(it)
-        }
-        edited.value = emptyPost
-    }
+//    fun save() {
+//        edited.value?.let {
+//            println("${edited.value}, save() -> repository.savePost(it)")
+//            repository.savePost(it)
+//        }
+//        edited.value = emptyPost
+//    }
 
-    fun changeContent(content: String) {
+    fun changeContentAndSave(content: String) {
         edited.value?.let {
             val text = content.trim()
             if (it.content == text) {
                 return
             }
             edited.value = it.copy(content = text)
+
         }
+        edited.value?.let {
+            repository.savePost(it)
+        }
+        edited.value = emptyPost
     }
 
 }
