@@ -2,28 +2,41 @@ package ru.netology.nmedia
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.annotation.DrawableRes
+import ru.netology.nmedia.data.Post
+import ru.netology.nmedia.data.PostService
 import ru.netology.nmedia.databinding.PostItemBinding
+import ru.netology.nmedia.viewModel.PostViewModel
 
 class MainActivity : AppCompatActivity() {
+
+    private val viewModel by viewModels<PostViewModel>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         val binding = PostItemBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val post = Post(
-            postId = 1,
-            author = "Нетология пост блаблаблаьлаблаблаблаблабла",
-            content = "Обратите внимание на блок с количеством просмотров. С ним есть небольшая проблема (поскольку он расположен справа). Если количество просмотров вырастет, например, до 500, то есть целых два варианта:\n" +
-                    "\n" +
-                    "Отталкиваться от текста (т.е. установить фиксированное расстояние от текста до границы родителя, а саму иконку приклеить к границе текста)\n" +
-                    "Оставить достаточное количество места, чтобы уместилось и 500 и 1К, тогда на всех карточках положение этого блока будет одинаковым\n" +
-                    "Вам нужно провести небольшое исследование и посмотреть, каким образом это реализовано в Vk.",
-            published = "18 june 2022"
-        )
+        viewModel.data.observe(this) { post ->
+            binding.render(post)
 
-        binding.render(post)
+            with(binding) {
+
+                if (post.likedByMe) {
+                    likeButton.setImageResource(getLikeIconResId(post.likedByMe))
+                }
+
+            }
+        }
+        binding.likeButton.setOnClickListener {
+            viewModel.like()
+        }
+
+        binding.shareButton.setOnClickListener {
+            viewModel.share()
+        }
 
         // without scope function "with(T)"
 //        if (post.likedByMe) {
@@ -36,28 +49,9 @@ class MainActivity : AppCompatActivity() {
 //            )
 //        }
 
+
         // with scope function "with(T)"
-        with(binding) {
-            if (post.likedByMe) {
-                likeButton.setImageResource(getLikeIconResId(post.likedByMe))
-            }
 
-
-
-            likeButton.setOnClickListener {
-                if (post.likedByMe) post.likes -= 1 else post.likes += 1
-                likeCounter.text = PostService.countToString(post.likes)
-                post.likedByMe = !post.likedByMe
-                likeButton.setImageResource(
-                    getLikeIconResId(post.likedByMe)
-                )
-            }
-
-            shareButton.setOnClickListener {
-                post.repostCount += 1
-                shareCounter.text = PostService.countToString(post.repostCount)
-            }
-        }
 
 
 

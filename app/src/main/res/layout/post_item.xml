@@ -102,6 +102,7 @@
         />
     <TextView
         android:id="@+id/like_counter"
+        android:minWidth="35dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:singleLine="true"
@@ -126,6 +127,7 @@
         app:layout_constraintHorizontal_chainStyle="spread"/>
     <TextView
         android:id="@+id/share_counter"
+        android:minWidth="35dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:singleLine="true"
@@ -150,6 +152,7 @@
 
     <TextView
         android:id="@+id/seen_counter"
+        android:minWidth="35dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:singleLine="true"

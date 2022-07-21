@@ -1,4 +1,4 @@
-package ru.netology.nmedia
+package ru.netology.nmedia.data
 
 import java.math.RoundingMode
 import java.text.DecimalFormat
@@ -8,8 +8,7 @@ object PostService {
 
     fun countToString(count: Int): String {
 
-
-        val result: String = when (count) {
+        return when (count) {
             in 1000..9999 ->
                 if ("${roundDecimal(count.toDouble() / 1000)}K".endsWith(".0K"))
                     "${count / 1000}K"
@@ -24,7 +23,6 @@ object PostService {
 
             else -> "$count"
         }
-        return result
     }
 
     private fun roundDecimal(number: Double): Double {
