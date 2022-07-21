@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="greeting">НМедиа!</string>
-    <string name="published">08 июля 2022</string>
+    <string name="published">16 июля 2022</string>
     <string name="remove">Удалить</string>
     <string name="post_text">Текст поста</string>
     <string name="edit">Редактировать</string>

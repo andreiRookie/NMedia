@@ -75,69 +75,158 @@
         app:layout_constraintTop_toBottomOf="@id/header_barrier"
         />
 
-    <ImageButton
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/menu_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
+        android:checkable="true"
+        app:backgroundTint="@android:color/transparent"
         android:contentDescription="@string/menu_button_description"
-        android:src="@drawable/ic_menu_24dp"
+        app:icon="@drawable/ic_menu_24dp"
+        android:outlineProvider="none"
         app:layout_constraintBottom_toBottomOf="@id/author"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginEnd="@dimen/common_padding"
-        app:layout_constraintTop_toTopOf="@id/author" />
+        app:layout_constraintTop_toTopOf="@id/author"
+        app:layout_constraintStart_toEndOf="@id/author"
+        style="@style/Widget.App.Button.IconOnly"
+        app:rippleColor="@color/purple_100"
+        />
 
-    <ImageButton
+<!--    <com.google.android.material.button.MaterialButton-->
+<!--        android:id="@+id/menu_button"-->
+<!--        android:layout_width="@dimen/common_menu_button_size"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:checkable="true"-->
+<!--        app:backgroundTint="@android:color/transparent"-->
+<!--        android:contentDescription="@string/menu_button_description"-->
+<!--        app:icon="@drawable/ic_menu_24dp"-->
+<!--        app:layout_constraintBottom_toBottomOf="@id/author"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="@id/author"-->
+<!--        app:layout_constraintStart_toEndOf="@id/author"-->
+<!--        style="@style/Widget.AppTheme.CommonButtonBox"-->
+<!--        app:rippleColor="@color/purple_100"/>-->
+
+
+<!--    <ImageButton-->
+<!--        android:id="@+id/menu_button"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:background="@android:color/transparent"-->
+<!--        android:contentDescription="@string/menu_button_description"-->
+<!--        android:src="@drawable/ic_menu_24dp"-->
+<!--        app:layout_constraintBottom_toBottomOf="@id/author"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        android:layout_marginEnd="@dimen/common_padding"-->
+<!--        app:layout_constraintTop_toTopOf="@id/author" />-->
+
+
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/like_button"
         android:contentDescription="like button"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/common_padding"
-        android:background="@android:color/transparent"
-        android:src="@drawable/ic_like_24"
-        app:layout_constraintEnd_toStartOf="@id/like_counter"
+        android:checkable="true"
+        app:backgroundTint="@android:color/transparent"
+        app:icon="@drawable/ic_like_24dp"
+        app:layout_constraintEnd_toStartOf="@id/share_button"
         app:layout_constraintStart_toStartOf="@id/netology_ava"
         app:layout_constraintTop_toBottomOf="@id/footer_barrier"
-
+        tools:text="100500"
+        android:textColor="?attr/colorControlNormal"
+        app:rippleColor="@color/purple_100"
+        style="@style/Widget.AppTheme.LikeButtonBox"
         />
-    <TextView
-        android:id="@+id/like_counter"
-        android:minWidth="35dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:singleLine="true"
-        android:text="@string/like_counter"
-        android:textSize="12sp"
-        app:layout_constraintTop_toBottomOf="@id/footer_barrier"
-        app:layout_constraintBottom_toBottomOf="@id/like_button"
-        app:layout_constraintVertical_chainStyle="spread"
-        app:layout_constraintStart_toEndOf="@id/like_button"
-        android:layout_marginStart="@dimen/common_counter_padding"
-        app:layout_constraintEnd_toStartOf="@id/share_button"/>
 
-    <ImageButton
+<!--    <com.google.android.material.checkbox.MaterialCheckBox-->
+<!--        android:id="@+id/like_button"-->
+<!--        android:contentDescription="like button"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:minWidth="25dp"-->
+<!--        android:button="@drawable/ic_like_24dp"-->
+<!--        app:layout_constraintEnd_toStartOf="@id/share_button"-->
+<!--        app:layout_constraintStart_toStartOf="@id/netology_ava"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/footer_barrier"-->
+<!--        tools:text="100500"-->
+<!--        style="@style/Widget.AppTheme.LikeCheckBox"-->
+<!--        />-->
+
+
+<!--    <ImageButton-->
+<!--        android:id="@+id/like_button"-->
+<!--        android:contentDescription="like button"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginBottom="@dimen/common_padding"-->
+<!--        android:background="@android:color/transparent"-->
+<!--        android:src="@drawable/ic_like_24"-->
+<!--        app:layout_constraintEnd_toStartOf="@id/like_counter"-->
+<!--        app:layout_constraintStart_toStartOf="@id/netology_ava"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/footer_barrier"-->
+<!--        />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/like_counter"-->
+<!--        android:minWidth="35dp"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:singleLine="true"-->
+<!--        android:text="@string/like_counter"-->
+<!--        android:textSize="12sp"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/footer_barrier"-->
+<!--        app:layout_constraintBottom_toBottomOf="@id/like_button"-->
+<!--        app:layout_constraintVertical_chainStyle="spread"-->
+<!--        app:layout_constraintStart_toEndOf="@id/like_button"-->
+<!--        android:layout_marginStart="@dimen/common_counter_padding"-->
+<!--        app:layout_constraintEnd_toStartOf="@id/share_button"/>-->
+
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/share_button"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/common_padding"
-        android:background="@android:color/transparent"
-        android:src="@drawable/ic_share_24"
-        app:layout_constraintStart_toEndOf="@id/like_counter"
-        app:layout_constraintTop_toBottomOf="@id/footer_barrier"
-        app:layout_constraintHorizontal_chainStyle="spread"/>
-    <TextView
-        android:id="@+id/share_counter"
-        android:minWidth="35dp"
+        android:contentDescription="share button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:singleLine="true"
-        android:text="@string/share_counter"
-        android:textSize="12sp"
+        app:icon="@drawable/ic_share_24"
+        app:backgroundTint = "@android:color/transparent"
+        android:checkable="true"
+        android:textColor="?attr/colorControlNormal"
+        tools:text="12345"
+        app:layout_constraintStart_toEndOf="@id/like_button"
         app:layout_constraintTop_toBottomOf="@id/footer_barrier"
-        app:layout_constraintStart_toEndOf="@id/share_button"
-        app:layout_constraintBottom_toBottomOf="@id/share_button"
-        app:layout_constraintHorizontal_chainStyle="spread_inside"
-        android:layout_marginStart="@dimen/common_counter_padding"/>
+        app:layout_constraintHorizontal_chainStyle="spread"
+        style="@style/Widget.AppThemeShareButtonBox"
+        app:rippleColor="@color/purple_100"
+        />
+
+
+
+
+
+
+<!--    <ImageButton-->
+<!--        android:id="@+id/share_button"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="@dimen/common_padding"-->
+<!--        android:background="@android:color/transparent"-->
+<!--        android:src="@drawable/ic_share_24"-->
+<!--        app:layout_constraintStart_toEndOf="@id/like_button"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/footer_barrier"-->
+<!--        app:layout_constraintHorizontal_chainStyle="spread"/>-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/share_counter"-->
+<!--        android:minWidth="35dp"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:singleLine="true"-->
+<!--        android:text="@string/share_counter"-->
+<!--        android:textSize="12sp"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/footer_barrier"-->
+<!--        app:layout_constraintStart_toEndOf="@id/share_button"-->
+<!--        app:layout_constraintBottom_toBottomOf="@id/share_button"-->
+<!--        app:layout_constraintHorizontal_chainStyle="spread_inside"-->
+<!--        android:layout_marginStart="@dimen/common_counter_padding"/>-->
 
     <ImageButton
         android:id="@+id/seen_icon"
@@ -160,6 +249,7 @@
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginEnd="@dimen/common_padding"
+        app:layout_constraintTop_toTopOf="@id/seen_icon"
         app:layout_constraintTop_toBottomOf="@id/footer_barrier"
         app:layout_constraintBottom_toBottomOf="@id/seen_icon"/>
 
