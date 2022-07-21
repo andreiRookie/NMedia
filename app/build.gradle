@@ -45,7 +45,8 @@ dependencies {
     testImplementation "androidx.arch.core:core-testing:$arch_version"
     implementation "androidx.activity:activity-ktx:1.4.0"
 
-
+    def recyclerview_version = "1.2.1"
+    implementation "androidx.recyclerview:recyclerview:$recyclerview_version"
 
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.4.2'
