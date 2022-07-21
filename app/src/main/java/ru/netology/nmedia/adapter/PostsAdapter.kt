@@ -1,27 +1,30 @@
-package ru.netology.nmedia.viewModel
+package ru.netology.nmedia.adapter
 
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
-import androidx.activity.viewModels
+import android.widget.PopupMenu
 import androidx.annotation.DrawableRes
+import androidx.constraintlayout.widget.Group
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import ru.netology.nmedia.R
 import ru.netology.nmedia.data.Post
 import ru.netology.nmedia.data.PostDiffCallBack
 import ru.netology.nmedia.data.PostService
+import ru.netology.nmedia.databinding.ActivityMainBinding
 import ru.netology.nmedia.databinding.PostItemBinding
 
 //typealias  OnLikeListener = (Post) -> Unit
 //typealias  OnShareListener = (Post) -> Unit
 
 internal class PostsAdapter(
-    private val onLikeListener: (post: Post) -> Unit,
-    private val onShareListener: (post: Post) -> Unit
+    private val interactionListener: OnInteractionListener
 
 ): ListAdapter<Post, PostsAdapter.PostViewHolder>(PostDiffCallBack()) {
 
+    // внутри листАдаптера уже есть список
 //    private var posts = emptyList<Post>()
 //    set(value) {
 //        field = value
@@ -29,23 +32,13 @@ internal class PostsAdapter(
 //    }
 
 
+
     inner class PostViewHolder(
 
         private val binding: PostItemBinding,
-        private val onLikeListener: (post: Post) -> Unit,
-        private val onShareListener: (post: Post) -> Unit
+        private val listener: OnInteractionListener
 
     ) : RecyclerView.ViewHolder(binding.root) {
-
-//        private lateinit var post: Post
-//
-//        init {
-//            binding.likeButton.setOnClickListener {
-//                likeButton.setImageResource(getLikeIconResId(post.likedByMe))
-//
-//                onLikeListener(post)
-//            }
-//        }
 
         fun bind(post: Post) = with(binding) {
             author.text = post.author
@@ -59,11 +52,31 @@ internal class PostsAdapter(
             likeButton.setImageResource(getLikeIconResId(post.likedByMe))
 
             likeButton.setOnClickListener {
-               onLikeListener(post)
+               listener.onLike(post)
             }
 
             shareButton.setOnClickListener {
-                onShareListener(post)
+                listener.onShare(post)
+            }
+
+            menuButton.setOnClickListener {
+                PopupMenu(it.context, it).apply {
+                    inflate(R.menu.menu_button_popup)
+
+                    setOnMenuItemClickListener { item ->
+                        when (item.itemId) {
+                            R.id.remove -> {
+                                listener.onRemove(post)
+                                true
+                            }
+                            R.id.edit -> {
+                                listener.onEdit(post)
+                                true
+                            }
+                            else -> false
+                        }
+                    }
+                }.show()
             }
         }
 
@@ -73,22 +86,18 @@ internal class PostsAdapter(
 
     }
 
-    //создает вью(через байндинг), кладет ее в во вьюхолдер и возвращает вьюхолдер адаптеру
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
         Log.d("PostsAdapter", "onCreateViewHolder")
         val inflater = LayoutInflater.from(parent.context)
 
         val binding = PostItemBinding.inflate(inflater, parent, false)
-        return PostViewHolder(binding, onLikeListener, onShareListener)
+        return PostViewHolder(binding, interactionListener)
     }
 
-    // подставляет следующую вью во вьюхолдер
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
         Log.d("PostsAdapter", "onBindViewHolder: $position")
-        val post = getItem(position) //val post = posts[position], getItem - метод ListAdaptera
+        val post = getItem(position) //val post = posts[position], getItem - метод ListAdapter
         holder.bind(post)
     }
-
-//    override fun getItemCount() = posts.size
 
 }

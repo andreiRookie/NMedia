@@ -2,10 +2,15 @@ package ru.netology.nmedia
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
+import ru.netology.nmedia.AndroidUtils.setCursorAtEndWithFocusAndShowKeyboard
 import ru.netology.nmedia.databinding.ActivityMainBinding
 import ru.netology.nmedia.viewModel.PostViewModel
-import ru.netology.nmedia.viewModel.PostsAdapter
+import ru.netology.nmedia.adapter.PostsAdapter
+import ru.netology.nmedia.adapter.OnInteractionListener
+import ru.netology.nmedia.data.Post
 
 class MainActivity : AppCompatActivity() {
 
@@ -18,96 +23,91 @@ class MainActivity : AppCompatActivity() {
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val adapter = PostsAdapter(
-            onLikeListener = {post -> viewModel.like(post.id)},
-            onShareListener = {post -> viewModel.share(post.id)}
-        )
+        val editGroupBinding = binding.editGroup
+
+
+
+        val adapter = PostsAdapter(object : OnInteractionListener {
+            override fun onLike(post: Post) {
+                viewModel.like(post.id)
+            }
+
+            override fun onShare(post: Post) {
+                viewModel.share(post.id)
+            }
+
+            override fun onRemove(post: Post) {
+                viewModel.remove(post.id)
+            }
+
+            override fun onEdit(post: Post) {
+                viewModel.edit(post)
+            }
+
+        })
+
         binding.postsRecyclerView.adapter = adapter
 
         viewModel.data.observe(this) { posts ->
+            println("viewModel.data.observe")
             adapter.submitList(posts)
 
-//            adapter.list = posts
-//            binding.postsRecyclerView.adapter = PostsAdapter(viewModel.like(post.id))
-//            binding.render(posts)
-
-//            with(binding) {
-//
-//                if (post.likedByMe) {
-//                    likeButton.setImageResource(getLikeIconResId(post.likedByMe))
-//                }
-//
-//            }
         }
 
+        binding.editCancel.setOnClickListener {
+            with(binding.contentTextEdit) {
+                viewModel.editTextCancel(this)
+                editGroupBinding.visibility = View.GONE
+            }
+        }
 
-        // without scope function "with(T)"
-//        if (post.likedByMe) {
-//            binding.likeButton.setImageResource(R.drawable.ic_liked_24)
-//        }
-//        binding.likeButton.setOnClickListener {
-//            post.likedByMe = !post.likedByMe
-//            binding.likeButton.setImageResource(
-//                if (post.likedByMe) R.drawable.ic_liked_24 else R.drawable.ic_like_24
-//            )
-//        }
+        binding.saveContentButton.setOnClickListener {
+            with(binding.contentTextEdit) {
 
 
-        // with scope function "with(T)"
+                if (text.isNullOrBlank()) {
+                    Toast.makeText(
+                        this@MainActivity,
+                        "Can't be empty",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    return@setOnClickListener
+                }
+
+                // в один метод свести чендж и сейв надо ли??:
+                viewModel.changeContentAndSave(text.toString())
+//                viewModel.save()
+
+                setText("")
+                clearFocus()
+                AndroidUtils.hideKeyboard(this)
+            }
+            editGroupBinding.visibility = View.GONE
+        }
+
+        viewModel.edited.observe(this) {
+            println("viewModel.edited.observe")
+            editGroupBinding.visibility = View.VISIBLE
+
+            if(it.id == 0L) {
+                editGroupBinding.visibility = View.GONE
+                println("return@observe viewModel.edited.observe")
+                return@observe
+            }
+            with(binding.contentTextEdit){
 
 
+//                requestFocus()
+//                AndroidUtils.showKeyboard(this)
+                this.setCursorAtEndWithFocusAndShowKeyboard()
+                setText(it.content)
 
 
-        // without ViewBinding
-//        setContentView(R.layout.post_item)
-//
-//        val likeButton = findViewById<TextView>(R.id.author)
-//
-//        likeButton.setOnClickListener(){
-//            if (it !is ImageButton) {
-//                return@setOnClickListener
-//            }
-//            it.setImageResource(R.drawable.ic_liked_24)
+            }
 
 
-        //  (it as ImageButton).setImageResource(R.drawable.ic_liked_24)
-        //likeButton.playSoundEffect(SoundEffectConstants.CLICK)
-
+        }
 
     }
-
-//    private fun ActivityMainBinding.render(posts: List<Post>) {
-//        for (post in posts) {
-//            PostItemBinding.inflate(
-//                layoutInflater, root, true
-//            ).render(post)
-//        }
-
-//    }
-
-//    private fun PostItemBinding.render(post: Post) {
-//        author.text = post.author
-//        postText.text = post.content
-//        published.text = post.published
-//        likeCounter.text = PostService.countToString(post.likes)
-//        seenCounter.text = PostService.countToString(post.viewCount)
-//        shareCounter.text = PostService.countToString(post.repostCount)
-//        likeButton.setImageResource(getLikeIconResId(post.likedByMe))
-//
-//        likeButton.setOnClickListener {
-//            likeButton.setImageResource(getLikeIconResId(post.likedByMe))
-//            viewModel.like(post.id)
-//        }
-//
-//        shareButton.setOnClickListener {
-//            viewModel.share(post.id)
-//        }
-//    }
-
-//    @DrawableRes
-//    private fun getLikeIconResId(isLiked: Boolean) =
-//        if (isLiked) R.drawable.ic_liked_24 else R.drawable.ic_like_24
-
-
 
 }
