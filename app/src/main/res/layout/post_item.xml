@@ -79,7 +79,7 @@
         android:id="@+id/menu_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:checkable="true"
+
         app:backgroundTint="@android:color/transparent"
         android:contentDescription="@string/menu_button_description"
         app:icon="@drawable/ic_menu_24dp"
@@ -188,7 +188,7 @@
         android:layout_height="wrap_content"
         app:icon="@drawable/ic_share_24"
         app:backgroundTint = "@android:color/transparent"
-        android:checkable="true"
+
         android:textColor="?attr/colorControlNormal"
         tools:text="12345"
         app:layout_constraintStart_toEndOf="@id/like_button"

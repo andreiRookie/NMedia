@@ -10,10 +10,8 @@
     <string name="share_counter" translatable="false">77</string>
     <string name="post_text">Post text</string>
     <string name="edit_post_bar_title">Edit post</string>
-
-
-
     <string name="remove">Remove</string>
     <string name="edit">Edit</string>
+    <string name="chooser_share_post">Share</string>
 
 </resources>
