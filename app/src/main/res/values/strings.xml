@@ -13,5 +13,7 @@
     <string name="remove">Remove</string>
     <string name="edit">Edit</string>
     <string name="chooser_share_post">Share</string>
+    <string name="error_empty_content">No content</string>
+    <string name="ok_button_description">Ok button</string>
 
 </resources>

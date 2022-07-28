@@ -5,6 +5,7 @@ data class Post(
     val author: String,
     val content: String = "",
     val published: String,
+    val video: String? = null,
     val repostCount: Int = 1999998,
     var viewCount: Int = 10999,
     val likes: Int = 2999,

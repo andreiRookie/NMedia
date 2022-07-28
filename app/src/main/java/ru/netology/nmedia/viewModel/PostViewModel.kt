@@ -5,6 +5,7 @@ import android.widget.TextView
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import ru.netology.nmedia.AndroidUtils
+import ru.netology.nmedia.SingleLiveEvent
 import ru.netology.nmedia.data.Post
 import ru.netology.nmedia.data.PostRepository
 import ru.netology.nmedia.data.PostRepoInMemoryImpl
@@ -25,9 +26,18 @@ class PostViewModel : ViewModel() {
 
     var edited = MutableLiveData(emptyPost)
 
+    val navigateToNewPostActivityEvent = SingleLiveEvent<Unit>()
+
+    val navigateToEditPostActivityEvent = SingleLiveEvent<String?>()  //<Post>?
+
+    val sharePostContent = SingleLiveEvent<String>()
+
     fun like(postId: Long) = repository.likeById(postId)
 
-    fun  share(postId: Long) = repository.shareById(postId)
+    fun share(post: Post) {
+        repository.shareById(post.id)
+        sharePostContent.value = post.content
+    }
 
     fun remove(postId: Long) = repository.removeById(postId)
 
@@ -35,6 +45,9 @@ class PostViewModel : ViewModel() {
     fun edit(post: Post) {
         println("fun edit $post")
         edited.value = post
+//        navigateToEditPostActivityEvent.value = post.content
+//        println("navigateToEditPostActivityEvent.value : ${navigateToEditPostActivityEvent.value }")
+
     }
 
     fun editTextCancel(view: TextView) {
@@ -67,5 +80,16 @@ class PostViewModel : ViewModel() {
         }
         edited.value = emptyPost
     }
+
+    fun addPost() {
+        navigateToNewPostActivityEvent.call()
+
+    }
+
+    fun editPost(postContent: String?) { //(post: Post)
+        navigateToEditPostActivityEvent.value = postContent
+    }
+
+
 
 }
