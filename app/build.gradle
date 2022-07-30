@@ -36,6 +36,8 @@ android {
 }
 
 dependencies {
+    implementation 'androidx.startup:startup-runtime:1.1.1'
+
 
     //ViewModel
     def lifecycle_version = "2.5.0-rc02"

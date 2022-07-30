@@ -1,11 +1,15 @@
 package ru.netology.nmedia
 
-import android.app.Activity
+
 import android.content.Intent
+
+
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.result.launch
 import androidx.activity.viewModels
+
 import ru.netology.nmedia.activity.EditPostResultContract
 import ru.netology.nmedia.activity.NewPostResultContract
 import ru.netology.nmedia.databinding.ActivityMainBinding
@@ -50,6 +54,10 @@ class MainActivity : AppCompatActivity() {
                 viewModel.share(post)
             }
 
+            override fun onVideo(post: Post) {
+                viewModel.playVideo(post.video)
+            }
+
 
             override fun onRemove(post: Post) {
                 viewModel.remove(post.id)
@@ -70,8 +78,8 @@ class MainActivity : AppCompatActivity() {
         }
 
         val editPostLauncher = registerForActivityResult(EditPostResultContract()) { postContent ->
+            println("editPostLauncher: $postContent")
             postContent ?: return@registerForActivityResult  //вызовется после
-            println("$postContent")
             viewModel.changeContentAndSave(postContent)      //parseResult
         }
 
@@ -91,21 +99,31 @@ class MainActivity : AppCompatActivity() {
             editPostLauncher.launch(it)
         }
 
+        viewModel.playVideoEventViaYoutube.observe(this) {
+            println("playVideoEvent.observe: $it")
+            val playVideoIntent = Intent(Intent.ACTION_VIEW, Uri.parse(it))
 
+//
+//            val pm = packageManager
+//            playVideoIntent.resolveActivity(pm)
+//            pm.queryIntentActivities(playVideoIntent,  MATCH_DEFAULT_ONLY)
+
+
+                startActivity(playVideoIntent)
+        }
 
         viewModel.data.observe(this) { posts ->
             println("viewModel.data.observe")
             adapter.submitList(posts)
-
         }
 
         viewModel.edited.observe(this) {
-            println("viewModel.edited.observe")
+            println("viewModel.edited.observe: ${it.id == 0L}")
 
             if (it.id == 0L) return@observe
 
             viewModel.editPost(it.content)
-
+        }
 
 //            val binding= NewPostActivityBinding.inflate(layoutInflater)
 //            setContentView(binding.root)
@@ -113,16 +131,16 @@ class MainActivity : AppCompatActivity() {
 //
 //
 //
-            val intent = Intent().apply {
-                action = Intent.ACTION_SEND
-                putExtra(Intent.EXTRA_TEXT,it.content)
-                type= "text/plain"
-                setResult(Activity.RESULT_OK, intent)
+//            val intent = Intent().apply {
+//                action = Intent.ACTION_SEND
+//                putExtra(Intent.EXTRA_TEXT,it.content)
+//                type= "text/plain"
+//                setResult(Activity.RESULT_OK, intent)
+//
+//            }
 
-            }
 
 
-        }
 
         viewModel.sharePostContent.observe(this) {
             println("viewModel.sharePostContent.observe")
@@ -133,13 +151,14 @@ class MainActivity : AppCompatActivity() {
                 putExtra(Intent.EXTRA_TEXT, it)
                 type= "text/plain"
             }
+
             val shareIntent = Intent.createChooser(intent, getString(R.string.chooser_share_post))
             startActivity(shareIntent)
         }
 
+    }
 
-
-
+}
 
 //        binding.editCancel.setOnClickListener {
 //            with(binding.contentTextEdit) {
@@ -179,6 +198,5 @@ class MainActivity : AppCompatActivity() {
 
 
 
-    }
 
-}
+

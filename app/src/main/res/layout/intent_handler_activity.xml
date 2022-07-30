@@ -15,7 +15,6 @@
         android:background="@android:color/transparent"
         tools:text="Post content"
         android:textSize="24sp"
-        tools:context=".activity.IntentHandlerActivity"
         />
 
     <com.google.android.material.bottomappbar.BottomAppBar

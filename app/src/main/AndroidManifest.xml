@@ -30,17 +30,13 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".activity.NewPostActivity"
-            android:exported="false"
-            android:windowSoftInputMode="adjustResize">
+        <queries>
+            <intent>
+                <action android:name="android.intent.action.VIEW" />
+                <data android:scheme="*" />
+            </intent>
+        </queries>
 
-            <intent-filter>
-                <action android:name="android.intent.action.SEND" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-                <data android:mimeType="text/plain"/>
-            </intent-filter>
-        </activity>
 
     </application>
 

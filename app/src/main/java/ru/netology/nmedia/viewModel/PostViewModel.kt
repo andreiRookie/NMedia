@@ -30,6 +30,8 @@ class PostViewModel : ViewModel() {
 
     val navigateToEditPostActivityEvent = SingleLiveEvent<String?>()  //<Post>?
 
+    val playVideoEventViaYoutube = SingleLiveEvent<String?>()
+
     val sharePostContent = SingleLiveEvent<String>()
 
     fun like(postId: Long) = repository.likeById(postId)
@@ -44,9 +46,8 @@ class PostViewModel : ViewModel() {
 
     fun edit(post: Post) {
         println("fun edit $post")
+        println("${edited.value}")
         edited.value = post
-//        navigateToEditPostActivityEvent.value = post.content
-//        println("navigateToEditPostActivityEvent.value : ${navigateToEditPostActivityEvent.value }")
 
     }
 
@@ -72,12 +73,13 @@ class PostViewModel : ViewModel() {
             if (it.content == text) {
                 return
             }
-            edited.value = it.copy(content = text)
+          repository.savePost(it.copy(content = content))
 
-        }
-        edited.value?.let {
-            repository.savePost(it)
-        }
+//           edited.value = it.copy(content = text)
+       }
+//        edited.value?.let {
+//            repository.savePost(it)
+//        }
         edited.value = emptyPost
     }
 
@@ -88,6 +90,11 @@ class PostViewModel : ViewModel() {
 
     fun editPost(postContent: String?) { //(post: Post)
         navigateToEditPostActivityEvent.value = postContent
+    }
+
+    fun playVideo(videoUrl: String?) {
+        println("fun playVideo(videoUrl: String?")
+        playVideoEventViaYoutube.value = videoUrl
     }
 
 

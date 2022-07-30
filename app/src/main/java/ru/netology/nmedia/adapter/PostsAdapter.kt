@@ -5,15 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
-import androidx.annotation.DrawableRes
-import androidx.constraintlayout.widget.Group
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import ru.netology.nmedia.R
 import ru.netology.nmedia.data.Post
 import ru.netology.nmedia.data.PostDiffCallBack
 import ru.netology.nmedia.data.PostService
-import ru.netology.nmedia.databinding.ActivityMainBinding
 import ru.netology.nmedia.databinding.PostItemBinding
 
 //typealias  OnLikeListener = (Post) -> Unit
@@ -44,6 +41,24 @@ internal class PostsAdapter(
             author.text = post.author
             postText.text = post.content
             published.text = post.published
+
+            videoPreviewGroup.visibility = if (post.video.isNullOrBlank()) View.GONE else View.VISIBLE
+
+//            videoPreviewGroup.setOnClickListener
+            textVideoPreview.setOnClickListener {
+                println("textVideoPreview.setOnClickListener")
+                if (post.video.isNullOrBlank()) return@setOnClickListener else listener.onVideo(post)
+            }
+
+            playVideoButton.setOnClickListener {
+                println("playVideoButton.setOnClickListener")
+                if (post.video.isNullOrBlank()) return@setOnClickListener else listener.onVideo(post)
+            }
+
+            imageVideoPreview.setOnClickListener {
+                println("imageVideoPreview.setOnClickListener")
+                if (post.video.isNullOrBlank()) return@setOnClickListener else listener.onVideo(post)
+            }
 
 //            likeCounter.text = PostService.countToString(post.likes)
             likeButton.text = PostService.countToString(post.likes)
