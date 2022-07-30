@@ -2,6 +2,8 @@ package ru.netology.nmedia
 
 
 import android.content.Intent
+import android.content.pm.PackageManager.MATCH_ALL
+import android.content.pm.PackageManager.MATCH_DEFAULT_ONLY
 
 
 import android.net.Uri
@@ -103,10 +105,10 @@ class MainActivity : AppCompatActivity() {
             println("playVideoEvent.observe: $it")
             val playVideoIntent = Intent(Intent.ACTION_VIEW, Uri.parse(it))
 
-//
-//            val pm = packageManager
-//            playVideoIntent.resolveActivity(pm)
-//            pm.queryIntentActivities(playVideoIntent,  MATCH_DEFAULT_ONLY)
+
+            val pm = this.packageManager
+            playVideoIntent.resolveActivity(pm)
+            println("${(pm.queryIntentActivities(playVideoIntent, MATCH_ALL))}")
 
 
                 startActivity(playVideoIntent)

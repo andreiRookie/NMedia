@@ -93,7 +93,7 @@ class PostViewModel : ViewModel() {
     }
 
     fun playVideo(videoUrl: String?) {
-        println("fun playVideo(videoUrl: String?")
+        println("fun playVideo($videoUrl")
         playVideoEventViaYoutube.value = videoUrl
     }
 
