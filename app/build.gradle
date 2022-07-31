@@ -36,6 +36,8 @@ android {
 }
 
 dependencies {
+    implementation 'com.google.code.gson:gson:2.8.5'
+
     implementation 'androidx.startup:startup-runtime:1.1.1'
 
 

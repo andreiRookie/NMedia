@@ -1,17 +1,16 @@
 package ru.netology.nmedia.viewModel
 
 
+import android.app.Application
 import android.widget.TextView
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import ru.netology.nmedia.AndroidUtils
 import ru.netology.nmedia.SingleLiveEvent
-import ru.netology.nmedia.data.Post
-import ru.netology.nmedia.data.PostRepository
-import ru.netology.nmedia.data.PostRepoInMemoryImpl
+import ru.netology.nmedia.data.*
 
 
-class PostViewModel : ViewModel() {
+class PostViewModel(application: Application) : AndroidViewModel(application) {
 
 
     private val emptyPost = Post(
@@ -20,7 +19,7 @@ class PostViewModel : ViewModel() {
         published = "09 july 2022"
     )
 
-    private val repository: PostRepository = PostRepoInMemoryImpl()
+    private val repository: PostRepository = PostRepoFileImpl(application)
 
     val data = repository.getAll()
 

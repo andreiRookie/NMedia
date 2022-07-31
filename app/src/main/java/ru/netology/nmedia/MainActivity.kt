@@ -1,6 +1,7 @@
 package ru.netology.nmedia
 
 
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager.MATCH_ALL
 import android.content.pm.PackageManager.MATCH_DEFAULT_ONLY
@@ -11,6 +12,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.result.launch
 import androidx.activity.viewModels
+import com.google.android.material.snackbar.BaseTransientBottomBar
+import com.google.android.material.snackbar.Snackbar
 
 import ru.netology.nmedia.activity.EditPostResultContract
 import ru.netology.nmedia.activity.NewPostResultContract
@@ -34,7 +37,21 @@ class MainActivity : AppCompatActivity() {
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
+//        run {
+//            val prefs = getPreferences(Context.MODE_PRIVATE)
+//            prefs.edit().apply {
+//                putString("key", "value")
+//                commit()
+//            }
+//        }
+//
+//        run {
+//            getPreferences(Context.MODE_PRIVATE)
+//                .getString("key", "noValue")?.let {
+//                    Snackbar.make(binding.root, it, BaseTransientBottomBar.LENGTH_INDEFINITE)
+//                        .show()
+//                }
+//        }
 
 
         val adapter = PostsAdapter(object : OnInteractionListener {
