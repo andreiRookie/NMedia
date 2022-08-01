@@ -1,27 +1,20 @@
 package ru.netology.nmedia
 
 
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager.MATCH_ALL
-import android.content.pm.PackageManager.MATCH_DEFAULT_ONLY
-
-
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.result.launch
 import androidx.activity.viewModels
-import com.google.android.material.snackbar.BaseTransientBottomBar
-import com.google.android.material.snackbar.Snackbar
-
+import androidx.appcompat.app.AppCompatActivity
 import ru.netology.nmedia.activity.EditPostResultContract
 import ru.netology.nmedia.activity.NewPostResultContract
+import ru.netology.nmedia.adapter.OnInteractionListener
+import ru.netology.nmedia.adapter.PostsAdapter
+import ru.netology.nmedia.data.Post
 import ru.netology.nmedia.databinding.ActivityMainBinding
 import ru.netology.nmedia.viewModel.PostViewModel
-import ru.netology.nmedia.adapter.PostsAdapter
-import ru.netology.nmedia.adapter.OnInteractionListener
-import ru.netology.nmedia.data.Post
 
 
 class MainActivity : AppCompatActivity() {
@@ -176,7 +169,6 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
-
 }
 
 //        binding.editCancel.setOnClickListener {
