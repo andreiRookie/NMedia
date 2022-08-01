@@ -2,6 +2,8 @@ package ru.netology.nmedia.adapter
 
 import ru.netology.nmedia.data.Post
 
+//CALLBACK INTERFACE
+
 interface OnInteractionListener {
     fun onLike(post: Post) {}
     fun onShare(post: Post) {}

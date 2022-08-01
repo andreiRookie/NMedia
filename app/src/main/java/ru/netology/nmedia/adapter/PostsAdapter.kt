@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
+import androidx.constraintlayout.widget.Group
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import ru.netology.nmedia.R
@@ -44,21 +45,26 @@ internal class PostsAdapter(
 
             videoPreviewGroup.visibility = if (post.video.isNullOrBlank()) View.GONE else View.VISIBLE
 
-//            videoPreviewGroup.setOnClickListener
-            textVideoPreview.setOnClickListener {
-                println("textVideoPreview.setOnClickListener")
-                if (post.video.isNullOrBlank()) return@setOnClickListener else listener.onVideo(post)
-            }
+            videoPreviewGroup.setAllOnClickListener(View.OnClickListener {
+                println("videoPreviewGroup.setOnClickListener")
+                if (post.video.isNullOrBlank()) return@OnClickListener else listener.onVideo(post)
+            })
 
-            playVideoButton.setOnClickListener {
-                println("playVideoButton.setOnClickListener")
-                if (post.video.isNullOrBlank()) return@setOnClickListener else listener.onVideo(post)
-            }
 
-            imageVideoPreview.setOnClickListener {
-                println("imageVideoPreview.setOnClickListener")
-                if (post.video.isNullOrBlank()) return@setOnClickListener else listener.onVideo(post)
-            }
+//            textVideoPreview.setOnClickListener {
+//                println("textVideoPreview.setOnClickListener")
+//                if (post.video.isNullOrBlank()) return@setOnClickListener else listener.onVideo(post)
+//            }
+//
+//            playVideoButton.setOnClickListener {
+//                println("playVideoButton.setOnClickListener")
+//                if (post.video.isNullOrBlank()) return@setOnClickListener else listener.onVideo(post)
+//            }
+//
+//            imageVideoPreview.setOnClickListener {
+//                println("imageVideoPreview.setOnClickListener")
+//                if (post.video.isNullOrBlank()) return@setOnClickListener else listener.onVideo(post)
+//            }
 
 //            likeCounter.text = PostService.countToString(post.likes)
             likeButton.text = PostService.countToString(post.likes)
@@ -117,6 +123,12 @@ internal class PostsAdapter(
         Log.d("PostsAdapter", "onBindViewHolder: $position")
         val post = getItem(position) //val post = posts[position], getItem - метод ListAdapter
         holder.bind(post)
+    }
+
+
+    // extens.func for the "Group" view
+    fun Group.setAllOnClickListener(listener: View.OnClickListener?) {
+        referencedIds.forEach { id -> rootView.findViewById<View>(id).setOnClickListener(listener)}
     }
 
 }

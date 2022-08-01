@@ -3,22 +3,18 @@ package ru.netology.nmedia
 
 import android.content.Intent
 import android.content.pm.PackageManager.MATCH_ALL
-import android.content.pm.PackageManager.MATCH_DEFAULT_ONLY
-
-
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.result.launch
 import androidx.activity.viewModels
-
+import androidx.appcompat.app.AppCompatActivity
 import ru.netology.nmedia.activity.EditPostResultContract
 import ru.netology.nmedia.activity.NewPostResultContract
+import ru.netology.nmedia.adapter.OnInteractionListener
+import ru.netology.nmedia.adapter.PostsAdapter
+import ru.netology.nmedia.data.Post
 import ru.netology.nmedia.databinding.ActivityMainBinding
 import ru.netology.nmedia.viewModel.PostViewModel
-import ru.netology.nmedia.adapter.PostsAdapter
-import ru.netology.nmedia.adapter.OnInteractionListener
-import ru.netology.nmedia.data.Post
 
 
 class MainActivity : AppCompatActivity() {
@@ -34,7 +30,21 @@ class MainActivity : AppCompatActivity() {
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
+//        run {
+//            val prefs = getPreferences(Context.MODE_PRIVATE)
+//            prefs.edit().apply {
+//                putString("key", "value")
+//                commit()
+//            }
+//        }
+//
+//        run {
+//            getPreferences(Context.MODE_PRIVATE)
+//                .getString("key", "noValue")?.let {
+//                    Snackbar.make(binding.root, it, BaseTransientBottomBar.LENGTH_INDEFINITE)
+//                        .show()
+//                }
+//        }
 
 
         val adapter = PostsAdapter(object : OnInteractionListener {
@@ -159,7 +169,6 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
-
 }
 
 //        binding.editCancel.setOnClickListener {
