@@ -56,7 +56,8 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:barrierDirection="bottom"
-        app:constraint_referenced_ids="post_text"
+        android:visibility="visible"
+        app:constraint_referenced_ids="video_preview_group"
         />
 
 
@@ -71,7 +72,7 @@
         android:text="@string/post_text"
         android:lineSpacingMultiplier="1.2"
         android:justificationMode="inter_word"
-        app:layout_constraintBottom_toTopOf="@id/footer_barrier"
+        app:layout_constraintBottom_toTopOf="@id/image_video_preview"
         app:layout_constraintTop_toBottomOf="@id/header_barrier"
         />
 
@@ -79,7 +80,7 @@
         android:id="@+id/menu_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:checkable="true"
+
         app:backgroundTint="@android:color/transparent"
         android:contentDescription="@string/menu_button_description"
         app:icon="@drawable/ic_menu_24dp"
@@ -91,6 +92,54 @@
         style="@style/Widget.App.Button.IconOnly"
         app:rippleColor="@color/purple_100"
         />
+
+
+
+    <ImageView
+        android:id="@+id/image_video_preview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/post_text"
+        app:layout_constraintBottom_toTopOf="@id/text_video_preview"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:paddingHorizontal="@dimen/video_image_padding"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
+        app:srcCompat="@drawable/video_preview"
+        />
+    <ImageButton
+        android:id="@+id/play_video_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/image_video_preview"
+        app:layout_constraintEnd_toEndOf="@id/image_video_preview"
+        app:layout_constraintTop_toTopOf="@id/image_video_preview"
+        app:layout_constraintBottom_toBottomOf="@id/image_video_preview"
+        android:src="@drawable/ic_play_video_48"
+        android:background="@android:color/transparent"
+        />
+
+    <TextView
+        android:id="@+id/text_video_preview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:text="Разбор вопросов и задач по модулю"
+        app:layout_constraintStart_toStartOf="@id/netology_ava"
+        app:layout_constraintTop_toBottomOf="@id/image_video_preview"
+        app:layout_constraintBottom_toTopOf="@id/footer_barrier"
+        />
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/video_preview_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        tools:visibility="visible"
+        app:constraint_referenced_ids="play_video_button,image_video_preview, text_video_preview"
+        />
+
 
 <!--    <com.google.android.material.button.MaterialButton-->
 <!--        android:id="@+id/menu_button"-->
@@ -188,7 +237,7 @@
         android:layout_height="wrap_content"
         app:icon="@drawable/ic_share_24"
         app:backgroundTint = "@android:color/transparent"
-        android:checkable="true"
+
         android:textColor="?attr/colorControlNormal"
         tools:text="12345"
         app:layout_constraintStart_toEndOf="@id/like_button"

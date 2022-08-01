@@ -6,4 +6,7 @@
     <string name="post_text">Текст поста</string>
     <string name="edit">Редактировать</string>
     <string name="edit_post_bar_title">Редактировать пост</string>
+    <string name="chooser_share_post">Поделиться</string>
+    <string name="error_empty_content">Нет контента</string>
+    <string name="ok_button_description">Кнопка OK</string>
 </resources>

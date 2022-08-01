@@ -5,6 +5,7 @@ import android.widget.TextView
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import ru.netology.nmedia.AndroidUtils
+import ru.netology.nmedia.SingleLiveEvent
 import ru.netology.nmedia.data.Post
 import ru.netology.nmedia.data.PostRepository
 import ru.netology.nmedia.data.PostRepoInMemoryImpl
@@ -25,16 +26,29 @@ class PostViewModel : ViewModel() {
 
     var edited = MutableLiveData(emptyPost)
 
+    val navigateToNewPostActivityEvent = SingleLiveEvent<Unit>()
+
+    val navigateToEditPostActivityEvent = SingleLiveEvent<String?>()  //<Post>?
+
+    val playVideoEventViaYoutube = SingleLiveEvent<String?>()
+
+    val sharePostContent = SingleLiveEvent<String>()
+
     fun like(postId: Long) = repository.likeById(postId)
 
-    fun  share(postId: Long) = repository.shareById(postId)
+    fun share(post: Post) {
+        repository.shareById(post.id)
+        sharePostContent.value = post.content
+    }
 
     fun remove(postId: Long) = repository.removeById(postId)
 
 
     fun edit(post: Post) {
         println("fun edit $post")
+        println("${edited.value}")
         edited.value = post
+
     }
 
     fun editTextCancel(view: TextView) {
@@ -59,13 +73,30 @@ class PostViewModel : ViewModel() {
             if (it.content == text) {
                 return
             }
-            edited.value = it.copy(content = text)
+          repository.savePost(it.copy(content = content))
 
-        }
-        edited.value?.let {
-            repository.savePost(it)
-        }
+//           edited.value = it.copy(content = text)
+       }
+//        edited.value?.let {
+//            repository.savePost(it)
+//        }
         edited.value = emptyPost
     }
+
+    fun addPost() {
+        navigateToNewPostActivityEvent.call()
+
+    }
+
+    fun editPost(postContent: String?) { //(post: Post)
+        navigateToEditPostActivityEvent.value = postContent
+    }
+
+    fun playVideo(videoUrl: String?) {
+        println("fun playVideo($videoUrl")
+        playVideoEventViaYoutube.value = videoUrl
+    }
+
+
 
 }
