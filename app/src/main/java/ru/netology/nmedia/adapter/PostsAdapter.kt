@@ -31,12 +31,18 @@ internal class PostsAdapter(
 
 
 
-    inner class PostViewHolder(
+    class PostViewHolder(
 
         private val binding: PostItemBinding,
         private val listener: OnInteractionListener
 
     ) : RecyclerView.ViewHolder(binding.root) {
+
+
+        // extens.func for the "Group" view
+        fun Group.setAllOnClickListener(listener: View.OnClickListener?) {
+            referencedIds.forEach { id -> rootView.findViewById<View>(id).setOnClickListener(listener)}
+        }
 
         fun bind(post: Post) = with(binding) {
             author.text = post.author
@@ -84,6 +90,10 @@ internal class PostsAdapter(
                 listener.onShare(post)
             }
 
+            postText.setOnClickListener {
+                listener.onPostContent(post)
+            }
+
             menuButton.setOnClickListener {
                 PopupMenu(it.context, it).apply {
                     inflate(R.menu.menu_button_popup)
@@ -126,9 +136,5 @@ internal class PostsAdapter(
     }
 
 
-    // extens.func for the "Group" view
-    fun Group.setAllOnClickListener(listener: View.OnClickListener?) {
-        referencedIds.forEach { id -> rootView.findViewById<View>(id).setOnClickListener(listener)}
-    }
 
 }
