@@ -5,7 +5,7 @@ import android.app.Application
 import android.widget.TextView
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import ru.netology.nmedia.AndroidUtils
+import ru.netology.nmedia.util.AndroidUtils
 import ru.netology.nmedia.SingleLiveEvent
 import ru.netology.nmedia.data.*
 
@@ -31,13 +31,15 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
 
     val playVideoEventViaYoutube = SingleLiveEvent<String?>()
 
-    val sharePostContent = SingleLiveEvent<String>()
+    val sharePostContentEvent = SingleLiveEvent<String>()
+
+    val navigateToSeparatePostFragmentEvent = SingleLiveEvent<Post>()
 
     fun like(postId: Long) = repository.likeById(postId)
 
     fun share(post: Post) {
         repository.shareById(post.id)
-        sharePostContent.value = post.content
+        sharePostContentEvent.value = post.content
     }
 
     fun remove(postId: Long) = repository.removeById(postId)
@@ -47,6 +49,7 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
         println("fun edit $post")
         println("${edited.value}")
         edited.value = post
+        println("${edited.value}")
 
     }
 
@@ -96,6 +99,8 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
         playVideoEventViaYoutube.value = videoUrl
     }
 
-
+    fun navigateToSeparatePostFragment(post: Post) {
+        navigateToSeparatePostFragmentEvent.value = post
+    }
 
 }
