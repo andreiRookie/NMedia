@@ -90,8 +90,8 @@ internal class PostsAdapter(
                 listener.onShare(post)
             }
 
-            postText.setOnClickListener {
-                listener.onPostContent(post)
+            binding.root.setOnClickListener {
+                listener.onBindingRoot(post)
             }
 
             menuButton.setOnClickListener {

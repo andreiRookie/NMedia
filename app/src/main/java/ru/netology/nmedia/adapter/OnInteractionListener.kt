@@ -10,5 +10,5 @@ interface OnInteractionListener {
     fun onRemove(post: Post) {}
     fun onEdit(post: Post) {}
     fun onVideo(post: Post) {}
-    fun onPostContent(post: Post) {}
+    fun onBindingRoot(post: Post) {}
 }

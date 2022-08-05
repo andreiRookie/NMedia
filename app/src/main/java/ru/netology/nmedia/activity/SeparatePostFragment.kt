@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import ru.netology.nmedia.R
 import ru.netology.nmedia.activity.NewPostFragment.Companion.textArg
@@ -29,7 +28,7 @@ class SeparatePostFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        val postId = arguments?.longArg
+        val postId = arguments?.longArg ?: -1
 
 
         val binding = FragmentSeparatePostBinding.inflate(inflater, container, false)
@@ -63,7 +62,7 @@ class SeparatePostFragment : Fragment() {
                     viewModel.edit(post)
                 }
 
-                override fun onPostContent(post: Post) {
+                override fun onBindingRoot(post: Post) {
                 }
 
             })
@@ -84,7 +83,7 @@ class SeparatePostFragment : Fragment() {
         }
 
         viewModel.edited.observe(viewLifecycleOwner) {
-            println("viewModel.edited.observe: ${it.id == 0L}")
+            println("SEPAR FRAG viewModel.edited.observe: ${it.id == 0L}")
 
             if (it.id == 0L) return@observe
 
@@ -93,9 +92,13 @@ class SeparatePostFragment : Fragment() {
 
         viewModel.navigateToEditPostActivityEvent.observe(viewLifecycleOwner) {
             println("from FeedFRag ToEditPostActivityEvent($it)")
-            val fragment =
-                activity?.supportFragmentManager?.findFragmentById(R.id.nav_host_fragment_container) as NavHostFragment
-            fragment.navController.navigate(
+//         Во фрагменте не нужно искать контроллер навигации
+//         функция нужна для активити, а у фрагментов есть findNavController()
+//            val fragment =
+//                activity?.supportFragmentManager?.findFragmentById(R.id.nav_host_fragment_container) as NavHostFragment
+//            fragment.navController.navigate(
+
+            findNavController().navigate(
                 R.id.action_separatePostFragment_to_newPostFragment,
                 Bundle().apply { textArg = it })
 
@@ -210,7 +213,7 @@ class SeparatePostFragment : Fragment() {
 
     //аналог static в Java
     companion object {
-        var Bundle.longArg: Long? by LongArg
+        var Bundle.longArg: Long by LongArg
     }
 
 }

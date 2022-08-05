@@ -65,7 +65,7 @@ class FeedFragment : Fragment() {
                 viewModel.edit(post)
             }
 
-            override fun onPostContent(post: Post) {
+            override fun onBindingRoot(post: Post) {
                 viewModel.navigateToSeparatePostFragment(post)
             }
 
@@ -113,7 +113,7 @@ class FeedFragment : Fragment() {
         }
 
         viewModel.edited.observe(viewLifecycleOwner) {
-            println("viewModel.edited.observe: ${it.id == 0L}")
+            println("FEED FRAG viewModel.edited.observe: ${it.id == 0L}")
 
             if (it.id == 0L) return@observe
 

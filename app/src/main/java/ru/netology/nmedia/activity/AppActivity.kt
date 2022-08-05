@@ -85,9 +85,19 @@ class AppActivity : AppCompatActivity() {
                     supportFragmentManager.findFragmentById(R.id.nav_host_fragment_container) as NavHostFragment
 
                 fragment.navController.navigate(
-                    (if (packName != "SeparatePostFragment") R.id.action_feedFragment_to_newPostFragment
-                    else R.id.action_separatePostFragment_to_newPostFragment),
+                    (if (packName == "SeparatePostFragment") R.id.action_separatePostFragment_to_newPostFragment
+                    else R.id.action_feedFragment_to_newPostFragment),
                     Bundle().apply { textArg = text })
+
+
+//                Можно было еще вернуться на фрагмент назад (на FeedFragment)
+//                и после вызывать переход.
+//                Тогда Share с фрагмента поста также будет работать.
+
+//                fragment.navController.navigateUp()
+//                fragment.navController.navigate(
+//                    R.id.action_feedFragment_to_newPostFragment,
+//                    Bundle().apply { textArg = text })
 
             }
         }

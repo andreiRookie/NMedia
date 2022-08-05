@@ -57,6 +57,13 @@ class PostRepoFileImpl(private val context: Context) : PostRepository {
         }
     }
 
+
+    init {
+        println("${posts.maxOf { post -> post.id }}")
+        uniqueId = posts.maxOf { post -> post.id }
+    }
+
+
     private fun sync() {
         context.openFileOutput(fileName, Context.MODE_PRIVATE).bufferedWriter().use {
             it.write(gson.toJson(posts))
@@ -99,7 +106,6 @@ class PostRepoFileImpl(private val context: Context) : PostRepository {
     }
 
     override fun savePost(post: Post) {
-
         if (post.id == 0L) {
             posts = listOf(
                 post.copy(
