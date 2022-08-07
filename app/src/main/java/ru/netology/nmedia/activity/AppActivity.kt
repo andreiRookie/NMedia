@@ -96,7 +96,8 @@ class AppActivity : AppCompatActivity() {
 
 //                fragment.navController.navigateUp()
 //                fragment.navController.navigate(
-//                    R.id.action_feedFragment_to_newPostFragment,
+//                    (if (packName == "SeparatePostFragment") R.id.action_separatePostFragment_to_newPostFragment
+//                    else R.id.action_feedFragment_to_newPostFragment),
 //                    Bundle().apply { textArg = text })
 
             }
