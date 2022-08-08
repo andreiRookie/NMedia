@@ -138,6 +138,8 @@ class PostDaoImpl(private val db: SQLiteDatabase) : PostDao {
             put(PostColumns.COLUMN_AUTHOR, "Me")
             put(PostColumns.COLUMN_CONTENT, post.content)
             put(PostColumns.COLUMN_PUBLISHED, "Today")
+
+            put(PostColumns.COLUMN_VIDEO, "https://www.youtube.com/watch?v=WhWc3b3KhnY")
         }
 
         val id = db.replace(PostColumns.TABLE, null, values)
