@@ -2,12 +2,11 @@ package ru.netology.nmedia.viewModel
 
 
 import android.app.Application
-import android.widget.TextView
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import ru.netology.nmedia.util.AndroidUtils
 import ru.netology.nmedia.SingleLiveEvent
 import ru.netology.nmedia.data.*
+import ru.netology.nmedia.database.AppDb
 
 
 class PostViewModel(application: Application) : AndroidViewModel(application) {
@@ -15,11 +14,13 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
 
     private val emptyPost = Post(
         id = 0L,
-        author = "",
-        published = "09 july 2022"
+        author = "Me pposting",
+        published = "09 august 2022"
     )
 
-    private val repository: PostRepository = PostRepoFileImpl(application)
+    private val repository: PostRepository = PostRepoRoomImpl(
+        AppDb.getInstance(context = application).postDao()
+    )
 
     val data = repository.getAll()
 
@@ -53,13 +54,13 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
 
     }
 
-    fun editTextCancel(view: TextView) {
-        println("Edit canceled")
-        edited.value = emptyPost
-        view.text = ""
-        view.clearFocus()
-        AndroidUtils.hideKeyboard(view)
-    }
+//    fun editTextCancel(view: TextView) {
+//        println("Edit canceled")
+//        edited.value = emptyPost
+//        view.text = ""
+//        view.clearFocus()
+//        AndroidUtils.hideKeyboard(view)
+//    }
 
 //    fun save() {
 //        edited.value?.let {
