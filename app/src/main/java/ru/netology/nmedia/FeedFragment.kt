@@ -81,10 +81,11 @@ class FeedFragment : Fragment() {
         viewModel.navigateToNewPostActivityEvent.observe(viewLifecycleOwner) {
             println("ToNewPostActivityEvent")
 
-            val text = arguments?.textArg
-            arguments?.clear()
-            findNavController().navigate(R.id.action_feedFragment_to_newPostFragment,
-                Bundle().apply { textArg = text })
+//            val text = arguments?.textArg
+//            arguments?.clear()
+            findNavController().navigate(R.id.action_feedFragment_to_newPostFragment)
+
+//                Bundle().apply { textArg = text })
 
         }
 

@@ -14,11 +14,11 @@ class AppDb private constructor(db: SQLiteDatabase) {
         @Volatile
         private var instance: AppDb? = null
 
-        //безопасное создание экземпляра через статич метод
+        //безопасное создание экземпляра через статик метод
         fun getInstance(context: Context): AppDb {
             return instance ?: synchronized(this) {
                 instance ?: AppDb(
-                    buildDatabase(context, arrayOf(*PostDaoImpl.PostColumns.ALL_COLUMNS))
+                    buildDatabase(context, arrayOf(PostDaoImpl.PostColumns.DDL))
                 ).also { instance = it }
             }
         }
