@@ -80,7 +80,12 @@ class FeedFragment : Fragment() {
 
         viewModel.navigateToNewPostActivityEvent.observe(viewLifecycleOwner) {
             println("ToNewPostActivityEvent")
+
+//            val text = arguments?.textArg
+//            arguments?.clear()
             findNavController().navigate(R.id.action_feedFragment_to_newPostFragment)
+
+//                Bundle().apply { textArg = text })
 
         }
 
@@ -91,7 +96,6 @@ class FeedFragment : Fragment() {
             fragment.navController.navigate(
                 R.id.action_feedFragment_to_newPostFragment,
                 Bundle().apply { textArg = it })
-
         }
 
         viewModel.playVideoEventViaYoutube.observe(viewLifecycleOwner) {
