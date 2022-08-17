@@ -40,9 +40,4 @@ interface PostDao {
 
     @Query("DELETE FROM posts WHERE postId = :postId")
     fun removeById(postId: Long)
-
-    fun fromDto(post: Post) =
-        PostEntity(post.id, post.author, post.content, post.published, post.video,
-            post.repostCount, post.viewCount, post.likes, post.likedByMe)
-
 }

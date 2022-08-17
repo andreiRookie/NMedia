@@ -15,5 +15,7 @@
     <string name="chooser_share_post">Share</string>
     <string name="error_empty_content">No content</string>
     <string name="ok_button_description">Ok button</string>
-
+    <string name="channel_remote_name" translatable="false">NMEdia!</string>
+    <string name="channel_remote_description">NMEdia! channel</string>
+    <string name="notification_user_like">%1$s liked post by %2$s</string>
 </resources>

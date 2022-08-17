@@ -24,7 +24,8 @@ class PostRepoRoomImpl(
     }
 
     override fun savePost(post: Post) {
-        dao.savePost(dao.fromDto(post))
+
+        dao.savePost(fromDto(post))
     }
 //        val id = post.id
 //        val saved = dao.savePost(post)

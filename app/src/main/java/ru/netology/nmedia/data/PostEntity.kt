@@ -19,3 +19,7 @@ data class PostEntity(
     val likes: Int = 2999,
     val likedByMe: Boolean = false
 )
+
+fun fromDto(post: Post) =
+    PostEntity(post.id, post.author, post.content, post.published, post.video,
+        post.repostCount, post.viewCount, post.likes, post.likedByMe)

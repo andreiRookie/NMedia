@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -9,7 +10,7 @@ android {
 
     defaultConfig {
         applicationId "ru.netology.nmedia"
-        minSdk 23
+        minSdk 22
         targetSdk 32
         versionCode 1
         versionName "1.0"
@@ -40,6 +41,7 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.6'
 
     implementation 'androidx.startup:startup-runtime:1.1.1'
+
 
 
     //ViewModel
@@ -74,4 +76,11 @@ dependencies {
     def room_version = "2.4.3"
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
+
+// fireBase
+    implementation platform('com.google.firebase:firebase-bom:30.3.2')
+    implementation 'com.google.firebase:firebase-messaging-ktx'
+
+    def play_services_base_version = "17.6.0"
+    implementation "com.google.android.gms:play-services-base:$play_services_base_version"
 }

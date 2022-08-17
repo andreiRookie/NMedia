@@ -9,4 +9,7 @@
     <string name="chooser_share_post">Поделиться</string>
     <string name="error_empty_content">Нет контента</string>
     <string name="ok_button_description">Кнопка OK</string>
+    <string name="channel_remote_description">Канал NMEdia!</string>
+    <string name="notification_user_like">%1$s поставил лайк посту %2$s</string>
+
 </resources>
