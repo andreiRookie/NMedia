@@ -46,6 +46,7 @@ class PostRepoRoomImpl(
 //            if (it.id != postId) it else it.copy(
 //                likedByMe = !it.likedByMe,
 //                likes =  if (it.likedByMe) it.likes - 1 else it.likes + 1
+//              // likes = it.likes + if (it.likedByMe) -1 else +1
 //            )
 //        }
 //        data.value = posts

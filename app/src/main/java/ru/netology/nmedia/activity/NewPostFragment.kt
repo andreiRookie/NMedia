@@ -38,17 +38,18 @@ class NewPostFragment : Fragment() {
                 override fun handleOnBackPressed() {
                 if (!binding.edit.text.isNullOrBlank()) {
                     val text = binding.edit.text.toString()
-
-                    findNavController().navigate(
-                        R.id.action_newPostFragment_to_feedFragment,
-                        Bundle().apply { textArg = text })
+                    draft = text
+                    findNavController().navigateUp()
                 } else {
                     isEnabled = false
-                 //   activity?.onBackPressed()
+                    draft = null
+                    findNavController().navigateUp()
                 }
             }
 
         })
+
+        if (!draft.isNullOrBlank()) binding.edit.setText(draft)
 
 
         val text = arguments?.textArg
@@ -61,6 +62,7 @@ class NewPostFragment : Fragment() {
 
             if (!binding.edit.text.isNullOrBlank()) {
                 val content = binding.edit.text.toString()
+                draft = null
                 binding.edit.setText("")
                 viewModel.changeContentAndSave(content)
             }
@@ -72,6 +74,7 @@ class NewPostFragment : Fragment() {
 
     //аналог static в Java
     companion object {
+        var draft: String? = null
         var Bundle.textArg: String? by StringArg
     }
 
