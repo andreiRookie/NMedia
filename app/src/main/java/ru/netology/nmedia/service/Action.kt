@@ -2,7 +2,8 @@ package ru.netology.nmedia.service
 
 
 enum class Action {
-    LIKE
+    LIKE,
+    NEW_POST
 }
 
 // obfuscation example

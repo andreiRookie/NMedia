@@ -4,13 +4,18 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
 import android.os.Build
+import android.text.Html
+import android.text.Spanned
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.core.text.HtmlCompat.FROM_HTML_MODE_LEGACY
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.google.gson.Gson
 import ru.netology.nmedia.R
+import ru.netology.nmedia.activity.AppActivity
 import kotlin.random.Random
 
 class FCMService : FirebaseMessagingService() {
@@ -35,21 +40,33 @@ class FCMService : FirebaseMessagingService() {
 
     }
 
+    @RequiresApi(Build.VERSION_CODES.N)
     override fun onMessageReceived(message: RemoteMessage) {
-        Log.d("onMessageReceived", gson.toJson(message))
+        Log.d("\nonMessageReceived", gson.toJson(message))
         println(gson.toJson(message))
+        try {
+            message.data[action]?.let {
+                when (Action.valueOf(it)) {
+                    Action.LIKE -> handleLike(
+                        gson.fromJson(
+                            message.data[content],
+                            Like::class.java
+                        )
+                    )
+                    Action.NEW_POST -> handleNewPost(
+                        gson.fromJson(
+                            message.data[content],
+                            NewPost::class.java
 
-        message.data[action]?.let {
-            when (Action.valueOf(it)) {
-                Action.LIKE -> handleLike(gson.fromJson(message.data[content], Like::class.java))
+                        )
+                    )
+                }
             }
+        } catch (e: IllegalArgumentException) {
+
+//            Snackbar/   toast(runOnUiThread??)
+            println("Such action is absent")
         }
-
-
-
-
-
-
 //        super.onMessageReceived(message)
     }
 
@@ -74,6 +91,28 @@ class FCMService : FirebaseMessagingService() {
             .notify(Random.nextInt(100_000), notification)
 
     }
+
+    @RequiresApi(Build.VERSION_CODES.N)
+    private fun handleNewPost(content: NewPost) {
+//        val text: String = getString(R.string.notification_new_post,
+//            content.postAuthor)
+//        val styledText: Spanned = Html.fromHtml(text, FROM_HTML_MODE_LEGACY)
+        val notification = NotificationCompat.Builder(this, channelId)
+            .setSmallIcon(R.drawable.ic_notification)
+            .setContentTitle( getString(R.string.notification_new_post,
+                content.postAuthor)
+            )
+            .setContentText(content.postContent)
+            .setStyle(NotificationCompat.BigTextStyle()
+                .bigText(content.postContent))
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+            .build()
+
+        NotificationManagerCompat.from(this)
+            .notify(Random.nextInt(100_000), notification)
+    }
+
+
 }
 
 

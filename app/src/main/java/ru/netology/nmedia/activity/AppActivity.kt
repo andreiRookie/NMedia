@@ -78,6 +78,8 @@ class AppActivity : AppCompatActivity() {
         handleIntent(intent)
     }
 
+
+
     private fun handleIntent(intent: Intent?) {
         intent?.let {
             if (it.action != Intent.ACTION_SEND) {
