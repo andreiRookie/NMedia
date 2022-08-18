@@ -22,6 +22,8 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
         AppDb.getInstance(context = application).postDao()
     )
 
+    private val newPostDraft = DraftContentSharedPrefs(application)
+
     val data = repository.getAll()
 
     var edited = MutableLiveData(emptyPost)
@@ -35,6 +37,12 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
     val sharePostContentEvent = SingleLiveEvent<String>()
 
     val navigateToSeparatePostFragmentEvent = SingleLiveEvent<Post>()
+
+//  NewPostFrag - draft
+    fun saveNewPostDraft(text: String) = newPostDraft.saveDraft(text)
+    fun getNewPostDraft() = newPostDraft.getDraft()
+
+
 
     fun like(postId: Long) = repository.likeById(postId)
 

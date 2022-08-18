@@ -23,7 +23,7 @@ class NewPostFragment : Fragment() {
 
     private val viewModel by viewModels<PostViewModel>(ownerProducer = ::requireParentFragment)
 
-    val prefs by lazy { DraftContentSharedPrefs(this.requireContext()) }
+   // val prefs by lazy { DraftContentSharedPrefs(this.requireContext()) }
 
 
     override fun onCreateView(
@@ -42,19 +42,19 @@ class NewPostFragment : Fragment() {
                 if (!binding.edit.text.isNullOrBlank()) {
                     val text = binding.edit.text.toString()
 //                    draft = text
-                    prefs.saveDraft(text)
+                    viewModel.saveNewPostDraft(text)
                     findNavController().navigateUp()
                 } else {
                     isEnabled = false
 //                    draft = null
-//                    prefs.saveDraft("")
+//                    viewModel.saveNewPostDraft("")
                     findNavController().navigateUp()
                 }
             }
 
         })
 
-        val draft = prefs.getDraft()
+        val draft = viewModel.getNewPostDraft()
         println(draft)
         if (draft.isNotBlank()) binding.edit.setText(draft)
 
@@ -72,7 +72,7 @@ class NewPostFragment : Fragment() {
             if (!binding.edit.text.isNullOrBlank()) {
                 val content = binding.edit.text.toString()
 //                draft = null
-                prefs.saveDraft("")
+                viewModel.saveNewPostDraft("")
 
                 //todo сохрание черновика при сохранении отредактированного текста
                 binding.edit.setText("")

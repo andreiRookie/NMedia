@@ -11,8 +11,14 @@ class PostRepoSharedPrefsImpl(context: Context) : PostRepository {
     //data storage
     private val gson = Gson()
     private val prefs = context.getSharedPreferences("repo", Context.MODE_PRIVATE)
+
     //type - объяснить GSON, что мы хотим получить List из Post
     // (поскольку в самом JSON'е этой информации нет)
+//    возвращает ссылка на класс “список из постов”, то есть на сложную коллекцию.
+//    Потому что методу fromJson нужно указать данные какого типа мы ожидаем прочитать,
+//    это как раз делается через указание класса по ссылке.
+//    Но в черновике Json не нужен, ведь сам черновик - это строка. Ее можно сохранять в
+//    sharedprefs методами putString и getString, преобразования через Json не нужно делать.
     private val type = TypeToken.getParameterized(List::class.java, Post::class.java).type
     private val key = "posts"
 

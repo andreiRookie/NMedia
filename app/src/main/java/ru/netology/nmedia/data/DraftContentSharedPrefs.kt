@@ -10,6 +10,12 @@ class DraftContentSharedPrefs(context: Context) {
 
     private val prefs = context.getSharedPreferences("draft", Context.MODE_PRIVATE)
 
+
+//    возвращает ссылка на класс “список из постов”, то есть на сложную коллекцию.
+    //    Потому что методу fromJson нужно указать данные какого типа мы ожидаем прочитать,
+//    это как раз делается через указание класса по ссылке.
+//    Но в черновике Json не нужен, ведь сам черновик - это строка. Ее можно сохранять в
+//    sharedprefs методами putString и getString, преобразования через Json не нужно делать.
     private val type = TypeToken.getParameterized(String::class.java).type
 
     private val key = "draft"
