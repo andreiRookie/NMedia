@@ -5,10 +5,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import ru.netology.nmedia.SingleLiveEvent
-import ru.netology.nmedia.data.Post
-import ru.netology.nmedia.data.PostRepoFileImpl
-import ru.netology.nmedia.data.PostRepoSQLiteImpl
-import ru.netology.nmedia.data.PostRepository
+import ru.netology.nmedia.data.*
 import ru.netology.nmedia.database.AppDb
 
 
@@ -17,13 +14,15 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
 
     private val emptyPost = Post(
         id = 0L,
-        author = "",
-        published = "09 july 2022"
+        author = "Me pposting",
+        published = "09 august 2022"
     )
 
-    private val repository: PostRepository = PostRepoSQLiteImpl(
-        AppDb.getInstance(context = application).postDao
+    private val repository: PostRepository = PostRepoRoomImpl(
+        AppDb.getInstance(context = application).postDao()
     )
+
+    private val newPostDraft = DraftContentSharedPrefs(application)
 
     val data = repository.getAll()
 
@@ -38,6 +37,12 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
     val sharePostContentEvent = SingleLiveEvent<String>()
 
     val navigateToSeparatePostFragmentEvent = SingleLiveEvent<Post>()
+
+//  NewPostFrag - draft
+    fun saveNewPostDraft(text: String) = newPostDraft.saveDraft(text)
+    fun getNewPostDraft() = newPostDraft.getDraft()
+
+
 
     fun like(postId: Long) = repository.likeById(postId)
 
