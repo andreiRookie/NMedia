@@ -18,5 +18,5 @@
     <string name="channel_remote_name" translatable="false">NMEdia!</string>
     <string name="channel_remote_description">NMEdia! channel</string>
     <string name="notification_user_like">%1$s liked post by %2$s</string>
-    <string name="notification_new_post"><big>%1$s</big> just shared a new post!</string>
+    <string name="notification_new_post"><b>%1$s</b> just shared a new post!</string>
 </resources>

@@ -3,9 +3,13 @@ package ru.netology.nmedia.service
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
+import android.graphics.Typeface
 import android.os.Build
 import android.text.Html
+import android.text.Spannable
+import android.text.SpannableString
 import android.text.Spanned
+import android.text.style.StyleSpan
 import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
@@ -63,8 +67,6 @@ class FCMService : FirebaseMessagingService() {
                 }
             }
         } catch (e: IllegalArgumentException) {
-
-//            Snackbar/   toast(runOnUiThread??)
             println("Such action is absent")
         }
 //        super.onMessageReceived(message)
@@ -76,13 +78,14 @@ class FCMService : FirebaseMessagingService() {
     }
 
     private fun handleLike(content: Like) {
+        val sb =SpannableString(getString(R.string.notification_user_like,
+            content.userName,
+            content.postAuthor
+        ))
+        sb.setSpan(StyleSpan(Typeface.BOLD), 0, content.userName.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         val notification = NotificationCompat.Builder(this, channelId)
             .setSmallIcon(R.drawable.ic_notification)
-            .setContentTitle(
-                getString(R.string.notification_user_like,
-                content.userName,
-                content.postAuthor
-                )
+            .setContentTitle(sb
             )
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             .build()
@@ -94,17 +97,15 @@ class FCMService : FirebaseMessagingService() {
 
     @RequiresApi(Build.VERSION_CODES.N)
     private fun handleNewPost(content: NewPost) {
-//        val text: String = getString(R.string.notification_new_post,
-//            content.postAuthor)
-//        val styledText: Spanned = Html.fromHtml(text, FROM_HTML_MODE_LEGACY)
+        val sb = SpannableString(getString(R.string.notification_new_post, content.postAuthor))
+        sb.setSpan(StyleSpan(Typeface.BOLD), 0, content.postAuthor.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         val notification = NotificationCompat.Builder(this, channelId)
             .setSmallIcon(R.drawable.ic_notification)
-            .setContentTitle( getString(R.string.notification_new_post,
-                content.postAuthor)
+            .setContentTitle(sb
             )
             .setContentText(content.postContent)
             .setStyle(NotificationCompat.BigTextStyle()
-                .bigText(content.postContent))
+                .bigText(sb))
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             .build()
 
