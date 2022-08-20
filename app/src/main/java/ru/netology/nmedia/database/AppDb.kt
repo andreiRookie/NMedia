@@ -19,10 +19,14 @@ abstract class AppDb : RoomDatabase() {
         @Volatile
         private var instance: AppDb? = null
 
-        //безопасное создание экземпляра через статич метод
+        //безопасное создание экземпляра через статик метод
         fun getInstance(context: Context): AppDb {
             return instance ?: synchronized(this) {
                 instance ?: buildDatabase(context).also { instance = it}
+
+            //    instance ?: AppDb(
+            //        buildDatabase(context, arrayOf(PostDaoImpl.PostColumns.DDL))
+            //    ).also { instance = it }
             }
         }
 

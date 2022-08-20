@@ -10,7 +10,6 @@ class DraftContentSharedPrefs(context: Context) {
 
     private val prefs = context.getSharedPreferences("draft", Context.MODE_PRIVATE)
 
-
 //    возвращает ссылка на класс “список из постов”, то есть на сложную коллекцию.
     //    Потому что методу fromJson нужно указать данные какого типа мы ожидаем прочитать,
 //    это как раз делается через указание класса по ссылке.

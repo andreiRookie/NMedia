@@ -1,16 +1,12 @@
 package ru.netology.nmedia.activity
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
-import androidx.activity.OnBackPressedDispatcher
-import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.fragment.findNavController
 import ru.netology.nmedia.R
 import ru.netology.nmedia.data.DraftContentSharedPrefs
@@ -25,7 +21,6 @@ class NewPostFragment : Fragment() {
 
    // val prefs by lazy { DraftContentSharedPrefs(this.requireContext()) }
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -33,7 +28,6 @@ class NewPostFragment : Fragment() {
     ): View {
 
         val binding = FragmentNewPostBinding.inflate(inflater, container, false)
-
 
         requireActivity().onBackPressedDispatcher
             .addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
@@ -54,6 +48,7 @@ class NewPostFragment : Fragment() {
 
         })
 
+
         val draft = viewModel.getNewPostDraft()
         println(draft)
         if (draft.isNotBlank()) binding.edit.setText(draft)
@@ -63,7 +58,7 @@ class NewPostFragment : Fragment() {
 
         val text = arguments?.textArg
         text?.let {binding.edit.setText(it)}
-        //либо так:
+        //либо такая запись:
 //        arguments?.textArg?.let(binding.edit::setText)
 
         binding.edit.setCursorAtEndWithFocusAndShowKeyboard()
@@ -80,7 +75,6 @@ class NewPostFragment : Fragment() {
             }
             findNavController().navigateUp()
         }
-
         return binding.root
     }
 
@@ -89,5 +83,6 @@ class NewPostFragment : Fragment() {
 //        var draft: String? = null
         var Bundle.textArg: String? by StringArg
     }
+
 
 }
