@@ -82,6 +82,7 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
         edited.value?.let {
             val text = content.trim()
             if (it.content == text) {
+                edited.value = emptyPost
                 return
             }
           repository.savePost(it.copy(content = content))
